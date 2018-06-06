@@ -1,4 +1,4 @@
-pragma solidity ^0.4.18;
+pragma solidity ^0.4.23;
 
 // ----------------------------------------------------------------------------
 //
@@ -9,7 +9,7 @@ pragma solidity ^0.4.18;
 //
 // Enjoy.
 //
-// (c) With referehcne to Moritz Neto with BokkyPooBah / Bok Consulting Pty Ltd Au 2017. The MIT Licence.
+// (c) With reference to Moritz Neto with BokkyPooBah / Bok Consulting Pty Ltd Au 2017. The MIT Licence.
 // ----------------------------------------------------------------------------
 
 
@@ -96,13 +96,14 @@ contract Owned {
 // ERC20 Token, with the addition of symbol, name and decimals and assisted
 // token transfers
 // ----------------------------------------------------------------------------
-contract FucksToken is ERC20Interface, Owned, SafeMath {
+contract YetAnotherUselessToken is ERC20Interface, Owned, SafeMath {
     string public symbol;
     string public  name;
     uint8 public decimals;
     uint public _totalSupply;
     bool public purchasingAllowed;
     uint256 public totalContribution;
+    uint256 public totalIssued;
     uint256 public totalBonusTokensIssued;
 
     mapping(address => uint) balances;
@@ -117,12 +118,13 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
         name = "Yet Another Useless Coin";
         decimals = 10;
         _totalSupply = 10000000;
-        balances[0xbf06e893b2529F8167919c6655d7b4b877c10819] = _totalSupply;
+        balances[0x233ab73da160BdBc8cFE085129A99d823cAb1B56] = _totalSupply;
         purchasingAllowed = false;
         totalContribution = 0;
+        totalIssued = 0;
         totalBonusTokensIssued = 0;
 
-        emit Transfer(address(0), 0xbf06e893b2529F8167919c6655d7b4b877c10819, _totalSupply);
+        emit Transfer(address(0), 0x233ab73da160BdBc8cFE085129A99d823cAb1B56, _totalSupply);
     }
 
 
@@ -216,13 +218,20 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
         return ERC20Interface(tokenAddress).transfer(owner, tokens);
     }
 
-
     function enablePurchasing() public onlyOwner {
         purchasingAllowed = true;
     }
 
     function disablePurchasing() public onlyOwner {
         purchasingAllowed = false;
+    }
+
+    // ------------------------------------------------------------------------
+    // Interface to the web app.
+    // Its Keccak-256 hash value is 0xc59d4847
+    // ------------------------------------------------------------------------
+    function getStats() constant public returns (uint256, uint256, uint256, bool) {
+        return (totalContribution, totalIssued, totalBonusTokensIssued, purchasingAllowed);
     }
 
     // -----------------------------------------------------------------------
@@ -253,9 +262,9 @@ contract FucksToken is ERC20Interface, Owned, SafeMath {
                 totalBonusTokensIssued += bonusTokensIssued;
             }
         }
-
+        totalIssued += tokensIssued;
         balances[msg.sender] += tokensIssued;
         
-        emit Transfer(0xbf06e893b2529F8167919c6655d7b4b877c10819, msg.sender, tokensIssued);
+        emit Transfer(0x233ab73da160BdBc8cFE085129A99d823cAb1B56, msg.sender, tokensIssued);
     }
 }
