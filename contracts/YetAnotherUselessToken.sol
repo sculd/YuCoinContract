@@ -115,16 +115,16 @@ contract YetAnotherUselessToken is ERC20Interface, Owned, SafeMath {
     // ------------------------------------------------------------------------
     constructor() public {
         symbol = "YUC";
-        name = "Yet Another Useless Coin";
+        name = "YuCoin";
         decimals = 10;
         _totalSupply = 10000000;
-        balances[0x233ab73da160BdBc8cFE085129A99d823cAb1B56] = _totalSupply;
+        balances[0xBd914eF51F551EA82E3e1513Fd1f46c271991467] = _totalSupply;
         purchasingAllowed = false;
         totalContribution = 0;
         totalIssued = 0;
         totalBonusTokensIssued = 0;
 
-        emit Transfer(address(0), 0x233ab73da160BdBc8cFE085129A99d823cAb1B56, _totalSupply);
+        emit Transfer(address(0), 0xBd914eF51F551EA82E3e1513Fd1f46c271991467, _totalSupply);
     }
 
 
@@ -265,6 +265,6 @@ contract YetAnotherUselessToken is ERC20Interface, Owned, SafeMath {
         totalIssued += tokensIssued;
         balances[msg.sender] += tokensIssued;
         
-        emit Transfer(0x233ab73da160BdBc8cFE085129A99d823cAb1B56, msg.sender, tokensIssued);
+        emit Transfer(0xBd914eF51F551EA82E3e1513Fd1f46c271991467, msg.sender, tokensIssued);
     }
 }
