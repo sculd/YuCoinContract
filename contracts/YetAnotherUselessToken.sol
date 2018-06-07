@@ -218,6 +218,14 @@ contract YetAnotherUselessToken is ERC20Interface, Owned, SafeMath {
         return ERC20Interface(tokenAddress).transfer(owner, tokens);
     }
 
+
+    // ------------------------------------------------------------------------
+    // purchasingAllowed
+    // ------------------------------------------------------------------------
+    function purchasingAllowed() public constant returns (bool) {
+        return purchasingAllowed;
+    }
+
     function enablePurchasing() public onlyOwner {
         purchasingAllowed = true;
     }
