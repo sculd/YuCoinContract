@@ -132,9 +132,8 @@ contract YetAnotherUselessToken is ERC20Interface, Owned, SafeMath {
     // Total supply
     // ------------------------------------------------------------------------
     function totalSupply() public constant returns (uint256) {
-        return _totalSupply  - balances[address(0)];
+        return _totalSupply * (10 ** decimals)  - balances[address(0)];
     }
-
 
     // ------------------------------------------------------------------------
     // Get the token balance for account tokenOwner
